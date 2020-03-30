@@ -1,0 +1,91 @@
+       
+<%- include('parts/header')%>
+<%- include('parts/navbar')%>
+
+<div class="container">
+    <h1>Add Product</h1>
+    <% if(typeof message != "undefined"){ %>
+        <% if(message.length > 0){ %>
+            <p class="alert alert-success"><%= message %></p>
+            <% } %>
+        
+    <% } %>
+    <form action="/admin/addProduct" method="POST" enctype="multipart/form-data">
+
+        <div class="form-group">
+            <label>Username</label>
+            <input type="text" name="name" placeholder="Enter product name" class="form-control">
+
+            <% let nameError = ValidationError.find(err => err.param === "name") %>
+            <% if(nameError) {%>
+              <p class="alert alert-danger">
+                  <%= nameError.msg  %>
+            </p>
+            <% } %>
+        </div>
+        
+        <div class="form-group">
+            <label>Price</label>
+            <input type="number" name="price" placeholder="Enter your price" class="form-control">
+            <% let priceError = ValidationError.find(err => err.param === "price") %>
+            <% if(priceError) {%>
+              <p class="alert alert-danger">
+                  <%= priceError.msg  %>
+            </p>
+            <% } %>
+        </div>
+        
+        <div class="form-group">
+            <label>description</label>
+            
+            <textarea name="desc"  class="form-control">
+            
+            </textarea>
+            <% let descError = ValidationError.find(err => err.param === "description") %>
+            <% if(descError) {%>
+              <p class="alert alert-danger">
+                  <%= descError.msg  %>
+            </p>
+            <% } %>
+        </div>
+
+        <div class="form-group">
+            <label>Category</label>
+         <select class="form-control" name="category" required>
+            <option value="">Choose category</option>
+           <option value="AA">AA</option>
+           <option value="BB">BB</option>
+           <option value="CC">CC</option>
+
+         </select>
+         <% let categoryError = ValidationError.find(err => err.param === "CategoryId") %>
+            <% if(categoryError) {%>
+              <p class="alert alert-danger">
+                  <%= categoryError.msg  %>
+            </p>
+            <% } %>
+        </div>
+        
+        <div class="form-group">
+              <label>Image</label>
+              <input type="file" name="image" class="form-control image">
+              <img src="" class="image-preview" style="width: 100px; height: 100px;">
+
+              <% let ImageError = ValidationError.find(err => err.param === "image") %>
+            <% if(ImageError) {%>
+              <p class="alert alert-danger">
+                  <%= ImageError.msg  %>
+            </p>
+            <% } %>
+
+        </div>
+        
+        <input type="submit" value="Add Product" class="btn btn-primary position">
+        
+        </form>
+</div>
+<script>
+   
+</script>
+
+<%- include('parts/footer')%>

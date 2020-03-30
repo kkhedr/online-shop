@@ -1,0 +1,64 @@
+
+<script>
+  
+  $(document).ready(function(){
+//delete
+$('.delete').click(function (e) {
+
+var that = $(this)
+
+//e.preventDefault();
+
+var n = new Noty({
+    text: "Confirmation delete",
+    type: "warning",
+    killer: true,
+    buttons: [
+        Noty.button("yes", 'btn btn-success mr-2', function () {
+            that.closest('form').submit();
+        }),
+
+        Noty.button("no", 'btn btn-primary mr-2', function () {
+            n.close();
+        })
+    ]
+});
+
+n.show();
+
+});//end of delete
+
+
+$(".image").change(function () {
+
+if (this.files && this.files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+        $('.image-preview').attr('src', e.target.result);
+    }
+
+    reader.readAsDataURL(this.files[0]);
+}
+
+});
+
+});
+</script>
+       
+        <script src="/js/jquery.min.js" ></script>
+        <script src="/js/popper.min.js" ></script>
+        <script src="/js/bootstrap.min.js" ></script>
+
+        <script src="/js/noty.min.js" ></script>
+        <script src="/js/site.js" ></script>
+        <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" ></script>
+        <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap.min.js" ></script>
+        <script src="https://cdn.datatables.net/fixedheader/3.1.6/js/dataTables.fixedHeader.min.js" ></script>
+        <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js" ></script>
+        <script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js" ></script>
+        <script src="/js/lib/alertify.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    </body>
+</html>

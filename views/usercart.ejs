@@ -1,0 +1,109 @@
+<%- include('parts/header')%>
+<%- include('parts/navbar')%>
+
+<div class="container">
+   <% if(typeof massege !== "undefined" && massege.length > 0 ){ %>
+    <% for(let error of massege) {%>
+        <p class="alert alert-danger">
+          <%= error.msg  %>
+        </p>
+      <% } %>
+   <% } %>
+
+   <% if(typeof messageDelete !== "undefined" && messageDelete.length > 0) {%>
+    <p class="alert alert-success">
+        <%= messageDelete  %>
+      </p>
+    <% } %>
+ 
+
+    <% if(Items.length === 0 ||typeof Items === "undefined") { %>
+        <p class="alert alert-danger">There is no items</p>
+    <% }else{ %>
+        
+    
+        <table id="" class="table table-striped table-bordered" >
+            <thead>
+                <tr>
+                    <th>no</th>
+                    <th>product name</th>
+                    <th>Price</th>
+                    <th>Amount</th>
+                    <th>total</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <% for(let i=0;i< Items.length;i++) {%>
+                   <tr>
+                    <td><%= i+1 %></td>
+                    <td><%= Items[i].name %></td>
+                    <td><%= Items[i].price %>$</td>
+                    <form method="POST">
+                        <td> <input type="text" name="amount" class="form-control" value="<%= Items[i].amount%>"> </td>
+                        <td> <%= Items[i].price * Items[i].amount %> </td>
+                        <td>
+                             <input type="hidden" name="cart_id" value="<%=Items[i]._id%>">
+                             <input type="submit" name="save" class="btn btn-primary" value="Save" formaction="/cart/save" >
+                             <input type="submit" name="remove"  id="delete_id" class="btn btn-danger delete" value="Delete" formaction="/cart/delete" >
+                        </td>
+                    
+                    </form>
+                    <td>
+                        <!-- <form action="/cart/delete" method="POST">
+                            <input type="hidden" name="cart_id" value="<%=Items[i]._id%>">
+                            <input type="submit" name="remove" id="delete_id" class="btn btn-danger delete" value="Delete">
+
+                        </form> -->
+                    </td>
+                    
+                   </tr>
+                  
+                <% } %>
+            </tbody>
+        </table>
+        
+        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Create Order</button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Create Order</h4>
+        </div>
+        <form action="/create/order" method="POST">
+        <div class="modal-body">
+
+          <div class="form-group">
+        <input type="hidden" class="form-control" name="email" value="<%= userEmail %>">
+          </div>
+
+          <div class="form-group">
+            <input type="text" class="form-control" name="address" >
+          </div>
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-default" >Create</button>
+        </div>
+    </form>
+      </div>
+      
+    </div>
+  </div>
+
+    <% } %>
+</div>
+
+<script type="text/javascript">
+
+</script>
+<%- include('parts/footer')%>
